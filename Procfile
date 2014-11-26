@@ -1,1 +1,1 @@
-web: bundle exec thin start --rackup web/config.ru
+web: bundle exec thin start
