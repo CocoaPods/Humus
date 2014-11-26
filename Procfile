@@ -1,1 +1,1 @@
-web: bundle exec thin start
+web: bundle exec thin start 2>&1
