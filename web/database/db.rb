@@ -15,4 +15,4 @@ if socket_dir = ENV['POSTGRES_UNIX_SOCKET']
 end
 options[:dbname] = uri.path[1..-1]
 
-DB = Flounder.connect options
+DB = Flounder.connect options.merge(search_path: 'public, information_schema')
