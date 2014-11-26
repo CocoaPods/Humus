@@ -41,26 +41,9 @@ begin
     task :migrate => :rack_env do
       Rake::Task[:env].invoke
       
-      # Trunk migrations.
+      # Run migrations.
       #
-      Sequel::Migrator.run(
-        DB,
-        File.join(ROOT, 'migrations/trunk')
-      )
-      
-      # Metrics migrations.
-      #
-      # TODO Figure out a way to merge this with schema_info.
-      #
-      Sequel::Migrator.run(
-        DB,
-        File.join(ROOT, 'migrations/metrics'),
-        # This enables us to have separate migrations
-        # for each app.
-        :table => :schema_info_metrics
-      )
-      
-      File.open('migrations/schema.txt', 'w') { |file| file.write(schema) }
+      require 'lib/migrate'
     end
 
     desc 'Drop DB for RACK_ENV'
