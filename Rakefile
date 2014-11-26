@@ -7,6 +7,11 @@ begin
   require 'rubygems'
   require 'bundler/setup'
 
+  task :env do
+    $LOAD_PATH.unshift(File.expand_path('../', __FILE__))
+    require 'config/init'
+  end
+
   task :rack_env do
     ENV['RACK_ENV'] ||= 'development'
   end
@@ -34,11 +39,28 @@ begin
 
     desc 'Run migrations'
     task :migrate => :rack_env do
-      # ENV['TRUNK_APP_LOG_TO_STDOUT'] = 'true'
       Rake::Task[:env].invoke
-      version = ENV['VERSION'].to_i if ENV['VERSION']
-      Sequel::Migrator.run(DB, File.join(ROOT, 'db/migrations'), :target => version)
-      File.open('db/schema.txt', 'w') { |file| file.write(schema) }
+      
+      # Trunk migrations.
+      #
+      Sequel::Migrator.run(
+        DB,
+        File.join(ROOT, 'migrations/trunk')
+      )
+      
+      # Metrics migrations.
+      #
+      # TODO Figure out a way to merge this with schema_info.
+      #
+      Sequel::Migrator.run(
+        DB,
+        File.join(ROOT, 'migrations/metrics'),
+        # This enables us to have separate migrations
+        # for each app.
+        :table => :schema_info_metrics
+      )
+      
+      File.open('migrations/schema.txt', 'w') { |file| file.write(schema) }
     end
 
     desc 'Drop DB for RACK_ENV'
