@@ -1,1 +1,1 @@
-web: bundle exec thin start
+web: bundle exec thin start >> tmp/log.txt 2>&1
