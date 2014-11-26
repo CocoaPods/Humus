@@ -11,6 +11,7 @@ ENV['DATABASE_URL'] ||= "postgres://localhost/trunk_cocoapods_org_#{ENV['RACK_EN
 require 'sequel'
 require 'pg'
 
-DB = Sequel.connect(ENV['DATABASE_URL'])
+require 'logger'
+DB = Sequel.connect(ENV['DATABASE_URL'], logger: Logger.new(STDOUT))
 DB.timezone = :utc
 Sequel.extension :core_extensions, :migration
