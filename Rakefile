@@ -82,3 +82,5 @@ begin
 rescue SystemExit, LoadError => e
   puts "[!] The normal tasks have been disabled: #{e.message}"
 end
+
+task :default => :'db:schema'
