@@ -3,6 +3,8 @@ Humus
 
 Handles database migrations and states for all CP web projects.
 
+Humus is the data ground on which we build beautiful trees, for example the cocoa palm.
+
 Run Migration
 -------------
 
