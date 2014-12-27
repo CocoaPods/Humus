@@ -20,4 +20,14 @@ Sequel::Migrator.run(
   version: 2
 )
 
+Sequel::Migrator.run(
+  DB,
+  File.join(ROOT, 'migrations/cocoadocs'),
+  # This enables us to have separate migrations
+  # for each app.
+  table: 'schema_info_cocoadocs',
+  version: 1
+)
+
+
 File.open('migrations/schema.txt', 'w') { |file| file.write(schema) }
