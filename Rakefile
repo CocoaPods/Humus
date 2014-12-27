@@ -98,6 +98,27 @@ begin
     end
   end
   
+  desc 'Install tools for running the site'
+  task :install_tools do
+    if `mdfind kind:application Postgres93.app`.length == 0 && `mdfind kind:application Postgres.app`.length == 0
+
+      puts "Postgres93.app was not found, would you like us to install it for you? yes/no"
+      puts "this will install homebrew, and brew cask for you if not installed."
+      exit unless STDIN.gets.strip == 'yes'
+      if `which brew`.length == 0
+        `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+      end
+      if Dir.exists?("/usr/local/Library/Taps/caskroom/homebrew-cask") == false
+        `brew install caskroom/cask/brew-cask`
+      end
+      
+      `brew cask install postgres`
+      puts "Installed Postgres app, this app hosts your database while it is being ran."
+    end
+    
+  end
+  
+  
 rescue SystemExit, LoadError => e
   puts "[!] The normal tasks have been disabled: #{e.message}"
 end
