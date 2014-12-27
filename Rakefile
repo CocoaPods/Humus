@@ -60,6 +60,8 @@ begin
     desc 'Drop DB for RACK_ENV'
     task :drop => :rack_env do
       sh "dropdb trunk_cocoapods_org_#{ENV['RACK_ENV']}"
+      sh "dropdb trunk_cocoapods_org_#{ENV['RACK_ENV']}"
+      
     end
 
     desc 'Create DB for RACK_ENV'

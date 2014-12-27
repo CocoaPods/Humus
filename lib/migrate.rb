@@ -4,7 +4,7 @@ Sequel::Migrator.run(
   DB,
   File.join(ROOT, 'migrations/trunk'),
   table: 'schema_info',
-  version: 11
+  version: 12
 )
 
 # Metrics migrations.
