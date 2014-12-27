@@ -89,13 +89,20 @@ begin
       puts "this will install homebrew, and brew cask for you if not installed."
       exit unless STDIN.gets.strip == 'yes'
       if `which brew`.length == 0
-        `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+        Bundler.with_clean_env do 
+          `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+        end
       end
       if Dir.exists?("/usr/local/Library/Taps/caskroom/homebrew-cask") == false
-        `brew install caskroom/cask/brew-cask`
+        Bundler.with_clean_env do 
+            `brew install caskroom/cask/brew-cask`
+        end
       end
       
-      `brew cask install postgres`
+      Bundler.with_clean_env do 
+        `brew cask install postgres`
+      end
+      
       puts "Installed Postgres app, this app hosts your database while it is being ran."
     end
     
