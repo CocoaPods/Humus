@@ -1,3 +1,8 @@
+# Since we've designed metrics/docs tables to revolve around
+# the pods table, but be independent of each other, we can
+# run all trunk migrations first, then all other.
+#
+
 # Trunk migrations.
 #
 Sequel::Migrator.run(
