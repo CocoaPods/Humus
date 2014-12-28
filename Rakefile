@@ -59,9 +59,10 @@ begin
 
     desc 'Drop DB for RACK_ENV'
     task :drop => :rack_env do
-      sh "dropdb trunk_cocoapods_org_#{ENV['RACK_ENV']}"
-      sh "dropdb trunk_cocoapods_org_#{ENV['RACK_ENV']}"
-      
+      exists = `psql -l | grep trunk_cocoapods_org_test`
+      unless exists.empty?
+        sh "dropdb trunk_cocoapods_org_#{ENV['RACK_ENV']}"
+      end
     end
 
     desc 'Create DB for RACK_ENV'
@@ -74,8 +75,8 @@ begin
       raise "Not yet implemented error"
     end
 
-    desc 'Create and migrate the DB for RACK_ENV'
-    task :bootstrap => [:create, :migrate]
+    desc 'Drop, create and migrate the DB for RACK_ENV'
+    task :bootstrap => [:drop, :create, :migrate]
 
     desc 'Drop and then bootstrap the DB for RACK_ENV'
     task :reset => [:drop, :bootstrap]
