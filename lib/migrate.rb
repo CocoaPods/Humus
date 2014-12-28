@@ -1,6 +1,6 @@
 # Since we've designed metrics/docs tables to revolve around
 # the pods table, but be independent of each other, we can
-# run all trunk migrations first, then all other.
+# run all trunk migrations first, then all others.
 #
 
 # Trunk migrations.
