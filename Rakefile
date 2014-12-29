@@ -85,18 +85,20 @@ begin
   desc 'Install tools for running the site'
   task :install_tools do
     if `mdfind kind:application Postgres93.app`.length == 0 && `mdfind kind:application Postgres.app`.length == 0
-
       puts "Postgres93.app was not found, would you like us to install it for you? yes/no"
       puts "this will install homebrew, and brew cask for you if not installed."
+      
       exit unless STDIN.gets.strip == 'yes'
+      
       if `which brew`.length == 0
         Bundler.with_clean_env do 
           `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
         end
       end
+      
       if Dir.exists?("/usr/local/Library/Taps/caskroom/homebrew-cask") == false
         Bundler.with_clean_env do 
-            `brew install caskroom/cask/brew-cask`
+          `brew install caskroom/cask/brew-cask`
         end
       end
       
