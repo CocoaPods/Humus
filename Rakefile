@@ -111,7 +111,28 @@ begin
     
   end
   
-  
+  desc 'Migrate CocoaPods db into local'
+  task :migrate_from_heroku do
+    database_url = ""
+    Bundler.with_clean_env do 
+      database_url = `heroku config:get DATABASE_URL --app cocoapods-org`.strip
+    end
+
+    tmp_file = "/tmp/cocoapods_trunk.sql"
+    puts "Downloading from the server, this will take a while"
+    puts "pg_dump #{database_url} -f #{tmp_file}"
+
+    `pg_dump #{database_url} -f #{tmp_file}`
+
+    puts "Downloaded, dropping old trunk_cocoapods_org_development db"
+    `echo "DROP DATABASE trunk_cocoapods_org_development" | psql postgres://localhost`
+    `echo "CREATE DATABASE trunk_cocoapods_org_development" | psql postgres://localhost`
+
+    `psql postgres://localhost/trunk_cocoapods_org_development -f #{tmp_file}`
+  end
+
+
+
 rescue SystemExit, LoadError => e
   puts "[!] The normal tasks have been disabled: #{e.message}"
 end
