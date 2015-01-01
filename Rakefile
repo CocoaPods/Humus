@@ -31,6 +31,7 @@ begin
     def schema
       require 'terminal-table'
       result = ''
+      # Tables are printed in alphabetical order.
       DB.tables.sort.each do |table|
         result << "#{table}\n"
         schema = DB.schema(table)
