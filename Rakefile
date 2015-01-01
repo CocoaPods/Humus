@@ -31,7 +31,7 @@ begin
     def schema
       require 'terminal-table'
       result = ''
-      DB.tables.each do |table|
+      DB.tables.sort.each do |table|
         result << "#{table}\n"
         schema = DB.schema(table)
         terminal_table = Terminal::Table.new(
