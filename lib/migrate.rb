@@ -3,6 +3,9 @@
 # run all trunk migrations first, then all others.
 #
 
+# NOTE Set the versions to the ones you want to migrate to.
+#
+
 # Trunk migrations.
 #
 Sequel::Migrator.run(
