@@ -31,7 +31,7 @@ Sequel::Migrator.run(
   # This enables us to have separate migrations
   # for each app.
   table: 'schema_info_cocoadocs',
-  version: 1
+  version: 2
 )
 
 
