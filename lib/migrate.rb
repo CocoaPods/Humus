@@ -3,6 +3,17 @@
 # run all trunk migrations first, then all others.
 #
 
+# Helper method
+#
+def foreign_key_delete_cascade source_table, target_table, foreign_key
+  <<-SQL
+    ALTER TABLE #{source_table} DROP CONSTRAINT #{source_table}_#{foreign_key}_fkey; 
+    ALTER TABLE #{source_table} ADD FOREIGN KEY (#{foreign_key}) 
+      REFERENCES #{target_table} (id)  
+      ON DELETE CASCADE;
+  SQL
+end
+
 # NOTE Set the versions to the ones you want to migrate to.
 #
 
@@ -12,7 +23,7 @@ Sequel::Migrator.run(
   DB,
   File.join(ROOT, 'migrations/trunk'),
   table: 'schema_info',
-  version: 12
+  version: 13
 )
 
 # Metrics migrations.
@@ -25,7 +36,7 @@ Sequel::Migrator.run(
   # This enables us to have separate migrations
   # for each app.
   table: 'schema_info_metrics',
-  version: 3
+  version: 4
 )
 
 Sequel::Migrator.run(
@@ -34,7 +45,7 @@ Sequel::Migrator.run(
   # This enables us to have separate migrations
   # for each app.
   table: 'schema_info_cocoadocs',
-  version: 2
+  version: 3
 )
 
 
