@@ -1,14 +1,16 @@
 cocoadocs_cloc_metrics
-+---------------+-----+-----------+------------------------------------------------------+------------+-------------+----------+--------------+
-| name          | oid | db_type   | default                                              | allow_null | primary_key | type     | ruby_default |
-+---------------+-----+-----------+------------------------------------------------------+------------+-------------+----------+--------------+
-| id            | 23  | "integer" | "nextval('cocoadocs_cloc_metrics_id_seq'::regclass)" | false      | true        | :integer | nil          |
-| pod_id        | 23  | "integer" | nil                                                  | false      | false       | :integer | nil          |
-| language      | 25  | "text"    | nil                                                  | true       | false       | :string  | nil          |
-| comments      | 23  | "integer" | nil                                                  | true       | false       | :integer | nil          |
-| files         | 23  | "integer" | nil                                                  | true       | false       | :integer | nil          |
-| lines_of_code | 23  | "integer" | nil                                                  | true       | false       | :integer | nil          |
-+---------------+-----+-----------+------------------------------------------------------+------------+-------------+----------+--------------+
++----------------+-----+-----------+------------------------------------------------------+------------+-------------+----------+--------------+
+| name           | oid | db_type   | default                                              | allow_null | primary_key | type     | ruby_default |
++----------------+-----+-----------+------------------------------------------------------+------------+-------------+----------+--------------+
+| id             | 23  | "integer" | "nextval('cocoadocs_cloc_metrics_id_seq'::regclass)" | false      | true        | :integer | nil          |
+| pod_id         | 23  | "integer" | nil                                                  | false      | false       | :integer | nil          |
+| language       | 25  | "text"    | nil                                                  | true       | false       | :string  | nil          |
+| comments       | 23  | "integer" | nil                                                  | true       | false       | :integer | nil          |
+| files          | 23  | "integer" | nil                                                  | true       | false       | :integer | nil          |
+| lines_of_code  | 23  | "integer" | nil                                                  | true       | false       | :integer | nil          |
+| metadata_short | 25  | "text"    | nil                                                  | true       | false       | :string  | nil          |
+| metadata_url   | 25  | "text"    | nil                                                  | true       | false       | :string  | nil          |
++----------------+-----+-----------+------------------------------------------------------+------------+-------------+----------+--------------+
 
 cocoadocs_pod_metrics
 +---------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
