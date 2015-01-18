@@ -24,12 +24,12 @@ cocoadocs_pod_metrics
 | readme_complexity       | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
 | initial_commit_date     | 1114 | "timestamp without time zone" | nil                                                 | true       | false       | :datetime | nil          |
 | rendered_readme_url     | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
-| not_found               | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
 | created_at              | 1114 | "timestamp without time zone" | nil                                                 | true       | false       | :datetime | nil          |
 | updated_at              | 1114 | "timestamp without time zone" | nil                                                 | true       | false       | :datetime | nil          |
 | license_short_name      | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | license_canonical_url   | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | total_test_expectations | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
+| notable                 | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
 commits
