@@ -27,6 +27,7 @@ cocoadocs_pod_metrics
 | not_found           | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
 | created_at          | 1114 | "timestamp without time zone" | nil                                                 | true       | false       | :datetime | nil          |
 | updated_at          | 1114 | "timestamp without time zone" | nil                                                 | true       | false       | :datetime | nil          |
+| queued_at           | 1114 | "timestamp without time zone" | nil                                                 | true       | false       | :datetime | nil          |
 +---------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
 commits
