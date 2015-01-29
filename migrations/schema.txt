@@ -29,7 +29,8 @@ cocoadocs_pod_metrics
 | license_short_name      | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | license_canonical_url   | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | total_test_expectations | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
-| notable                 | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
+| dominant_language       | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
+| notability              | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
 commits
