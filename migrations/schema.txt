@@ -31,6 +31,7 @@ cocoadocs_pod_metrics
 | total_test_expectations | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
 | dominant_language       | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | notability              | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
+| quality_estimate        | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
 commits
