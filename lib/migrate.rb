@@ -25,7 +25,7 @@ Sequel::Migrator.run(
   # This enables us to have separate migrations
   # for each app.
   table: 'schema_info_metrics',
-  version: 3
+  version: 4
 )
 
 Sequel::Migrator.run(

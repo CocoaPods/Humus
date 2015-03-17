@@ -29,8 +29,8 @@ cocoadocs_pod_metrics
 | license_short_name      | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | license_canonical_url   | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | total_test_expectations | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
-| dominant_language       | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | notability              | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
+| dominant_language       | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | quality_estimate        | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
@@ -63,22 +63,24 @@ disputes
 +------------+------+-------------------------------+----------------------------------------+------------+-------------+-----------+--------------+
 
 github_pod_metrics
-+--------------------+------+-------------------------------+--------------------------------------------------+------------+-------------+-----------+--------------+
-| name               | oid  | db_type                       | default                                          | allow_null | primary_key | type      | ruby_default |
-+--------------------+------+-------------------------------+--------------------------------------------------+------------+-------------+-----------+--------------+
-| id                 | 23   | "integer"                     | "nextval('github_pod_metrics_id_seq'::regclass)" | false      | true        | :integer  | nil          |
-| pod_id             | 23   | "integer"                     | nil                                              | false      | false       | :integer  | nil          |
-| subscribers        | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
-| stargazers         | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
-| forks              | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
-| contributors       | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
-| open_issues        | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
-| open_pull_requests | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
-| not_found          | 23   | "integer"                     | "0"                                              | true       | false       | :integer  | 0            |
-| created_at         | 1114 | "timestamp without time zone" | nil                                              | true       | false       | :datetime | nil          |
-| updated_at         | 1114 | "timestamp without time zone" | nil                                              | true       | false       | :datetime | nil          |
-| language           | 25   | "text"                        | nil                                              | true       | false       | :string   | nil          |
-+--------------------+------+-------------------------------+--------------------------------------------------+------------+-------------+-----------+--------------+
++----------------------+------+-------------------------------+--------------------------------------------------+------------+-------------+-----------+--------------+
+| name                 | oid  | db_type                       | default                                          | allow_null | primary_key | type      | ruby_default |
++----------------------+------+-------------------------------+--------------------------------------------------+------------+-------------+-----------+--------------+
+| id                   | 23   | "integer"                     | "nextval('github_pod_metrics_id_seq'::regclass)" | false      | true        | :integer  | nil          |
+| pod_id               | 23   | "integer"                     | nil                                              | false      | false       | :integer  | nil          |
+| subscribers          | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
+| stargazers           | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
+| forks                | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
+| contributors         | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
+| open_issues          | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
+| open_pull_requests   | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
+| not_found            | 23   | "integer"                     | "0"                                              | true       | false       | :integer  | 0            |
+| created_at           | 1114 | "timestamp without time zone" | nil                                              | true       | false       | :datetime | nil          |
+| updated_at           | 1114 | "timestamp without time zone" | nil                                              | true       | false       | :datetime | nil          |
+| language             | 25   | "text"                        | nil                                              | true       | false       | :string   | nil          |
+| closed_issues        | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
+| closed_pull_requests | 23   | "integer"                     | nil                                              | true       | false       | :integer  | nil          |
++----------------------+------+-------------------------------+--------------------------------------------------+------------+-------------+-----------+--------------+
 
 log_messages
 +----------------+------+-------------------------------+--------------------------------------------+------------+-------------+-----------+--------------+
