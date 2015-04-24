@@ -1,3 +1,5 @@
+ENV['RACK_ENV'] = 'test'
+
 # Load DB.
 #
 if ENV['LOAD_TEST_DB']
