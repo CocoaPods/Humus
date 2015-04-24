@@ -81,6 +81,19 @@ begin
 
     desc 'Drop and then bootstrap the DB for RACK_ENV'
     task :reset => [:drop, :bootstrap]
+    
+    namespace :test do
+      desc "Bootstrap a test DB"
+      task :bootstrap do
+        # `pg_restore --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test spec/fixtures/trunk.dump`
+      end
+    end
+  
+    desc "Get a prod dump."
+    task :dump do
+      # `heroku pg:backups capture DATABASE_URL -a cocoapods-trunk-service`
+      `curl -o spec/trunk.dump \`heroku pgbackups:url b008 -a cocoapods-trunk-service\``
+    end
   end
   
   desc 'Install tools for running the site'
@@ -132,10 +145,27 @@ begin
     `psql postgres://localhost/trunk_cocoapods_org_development -f #{tmp_file}`
   end
 
+  namespace :spec do
+    def specs dir = '**'
+      FileList["spec/#{dir}/*_spec.rb"].shuffle.join ' '
+    end
 
+    desc "Automatically run specs for updated files"
+    task :kick do
+      exec "bundle exec kicker -c"
+    end
+
+    desc "Run all specs"
+    task :all => :'db:test:bootstrap' do
+      sh "bundle exec bacon #{specs}"
+    end
+  end
+
+  desc "Run all specs"
+  task :spec => 'spec:all'
 
 rescue SystemExit, LoadError => e
   puts "[!] The normal tasks have been disabled: #{e.message}"
 end
 
-task :default => :'db:schema'
+task :default => :spec
