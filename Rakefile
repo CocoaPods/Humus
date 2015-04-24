@@ -12,6 +12,10 @@ begin
     require 'config/init'
   end
 
+  task :test_env do
+    ENV['RACK_ENV'] = 'test'
+  end
+
   task :rack_env do
     ENV['RACK_ENV'] ||= 'development'
     
@@ -79,7 +83,8 @@ begin
     
     namespace :test do
       desc 'Seed test DB'
-      task :seed => :rack_env do
+      task :seed => :test_env do
+        puts "Restoring #{ENV['RACK_ENV']} database from spec/fixtures/trunk-b008.dump"
         `pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test spec/fixtures/trunk-b008.dump`
       end
       
