@@ -71,11 +71,6 @@ begin
       sh "createdb -h localhost trunk_cocoapods_org_#{ENV['RACK_ENV']} -E UTF8"
     end
 
-    desc 'Seed DB to the given version at a certain date'
-    task :seed, [:date] => :rack_env do
-      raise "Not yet implemented error"
-    end
-
     desc 'Drop, create and migrate the DB for RACK_ENV'
     task :bootstrap => [:drop, :create, :migrate]
 
@@ -83,16 +78,15 @@ begin
     task :reset => [:drop, :bootstrap]
     
     namespace :test do
-      desc "Bootstrap a test DB"
-      task :bootstrap do
-        # `pg_restore --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test spec/fixtures/trunk.dump`
+      desc 'Seed test DB'
+      task :seed => :rack_env do
+        `pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test spec/fixtures/trunk-b008.dump`
       end
-    end
-  
-    desc "Get a prod dump."
-    task :dump do
-      # `heroku pg:backups capture DATABASE_URL -a cocoapods-trunk-service`
-      `curl -o spec/trunk.dump \`heroku pgbackups:url b008 -a cocoapods-trunk-service\``
+      
+      desc "Get prod dump."
+      task :dump do
+        `curl -o spec/fixtures/trunk-b008.dump \`heroku pgbackups:url b008 -a cocoapods-trunk-service\``
+      end
     end
   end
   
@@ -156,7 +150,7 @@ begin
     end
 
     desc "Run all specs"
-    task :all => :'db:test:bootstrap' do
+    task :all => :'db:test:seed' do
       sh "bundle exec bacon #{specs}"
     end
   end
