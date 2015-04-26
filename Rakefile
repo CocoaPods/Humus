@@ -87,7 +87,9 @@ begin
         id = args.id || 'b008'
         puts "Restoring #{ENV['RACK_ENV']} database from fixtures/trunk-#{id}.dump"
         result = system "pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test fixtures/trunk-#{id}.dump"
-        unless result
+        if result
+          puts "Database #{ENV['RACK_ENV']} restored from fixtures/trunk-#{id}.dump"
+        else
           raise "Dump #{id} could not be found."
         end
       end
