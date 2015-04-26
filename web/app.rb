@@ -1,4 +1,4 @@
-Bundler.require(*[:default, :web, ENV['RACK_ENV'].to_sym].compact)
+Bundler.require(*[:default, :web, :database, ENV['RACK_ENV'].to_sym].compact)
 
 require 'json'
 require 'sinatra/base'

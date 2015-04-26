@@ -12,6 +12,10 @@ begin
     require 'config/init'
   end
 
+  task :test_env do
+    ENV['RACK_ENV'] = 'test'
+  end
+
   task :rack_env do
     ENV['RACK_ENV'] ||= 'development'
     
@@ -71,16 +75,24 @@ begin
       sh "createdb -h localhost trunk_cocoapods_org_#{ENV['RACK_ENV']} -E UTF8"
     end
 
-    desc 'Seed DB to the given version at a certain date'
-    task :seed, [:date] => :rack_env do
-      raise "Not yet implemented error"
-    end
-
     desc 'Drop, create and migrate the DB for RACK_ENV'
     task :bootstrap => [:drop, :create, :migrate]
 
     desc 'Drop and then bootstrap the DB for RACK_ENV'
     task :reset => [:drop, :bootstrap]
+    
+    namespace :test do
+      desc 'Seed test DB from e.g. a production dump'
+      task :seed_from_dump => :test_env do
+        puts "Restoring #{ENV['RACK_ENV']} database from spec/fixtures/trunk-b008.dump"
+        `pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test spec/fixtures/trunk-b008.dump`
+      end
+      
+      desc "Get prod dump."
+      task :dump do
+        `curl -o spec/fixtures/trunk-b008.dump \`heroku pgbackups:url b008 -a cocoapods-trunk-service\``
+      end
+    end
   end
   
   desc 'Install tools for running the site'
@@ -132,10 +144,27 @@ begin
     `psql postgres://localhost/trunk_cocoapods_org_development -f #{tmp_file}`
   end
 
+  namespace :spec do
+    def specs dir = '**'
+      FileList["spec/#{dir}/*_spec.rb"].shuffle.join ' '
+    end
 
+    desc "Automatically run specs for updated files"
+    task :kick do
+      exec "bundle exec kicker -c"
+    end
+
+    desc "Run all specs"
+    task :all => :'db:test:seed_from_dump' do
+      sh "bundle exec bacon #{specs}"
+    end
+  end
+
+  desc "Run all specs"
+  task :spec => 'spec:all'
 
 rescue SystemExit, LoadError => e
   puts "[!] The normal tasks have been disabled: #{e.message}"
 end
 
-task :default => :'db:schema'
+task :default => :spec

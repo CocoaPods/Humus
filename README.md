@@ -14,8 +14,8 @@ This project:
 * helps setup a local CocoaPods development/test DB.
 * can pull snapshots from the production DB for testing purposes.
 
-Run Migration
--------------
+Run Migrations in Production
+----------------------------
 
 First of all, be super careful.
 
@@ -35,3 +35,11 @@ Answer all verification questions.
 
 If it goes badly wrong, we have daily automated backups in place.
 See the Trunk Heroku app for infos.
+
+Running tests
+-------------
+
+You need to have access (be on the core team).
+
+1. `bundle exec rake db:test:dump`
+2. `bundle exec rake`
