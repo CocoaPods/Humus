@@ -82,15 +82,24 @@ begin
     task :reset => [:drop, :bootstrap]
     
     namespace :test do
-      desc 'Seed test DB from e.g. a production dump'
-      task :seed_from_dump => :test_env do
-        puts "Restoring #{ENV['RACK_ENV']} database from spec/fixtures/trunk-b008.dump"
-        `pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test spec/fixtures/trunk-b008.dump`
+      desc 'Seed test DB from a named production dump'
+      task :seed_from_dump, [:id] => :test_env do |_, args|
+        id = args.id || 'b008'
+        puts "Restoring #{ENV['RACK_ENV']} database from fixtures/trunk-#{id}.dump"
+        result = system "pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test fixtures/trunk-#{id}.dump"
+        unless result
+          raise "Dump #{id} could not be found."
+        end
       end
       
       desc "Get prod dump."
-      task :dump do
-        `curl -o spec/fixtures/trunk-b008.dump \`heroku pgbackups:url b008 -a cocoapods-trunk-service\``
+      task :dump, :id do |_, args|
+        id = args.id || 'b008'
+        puts "Dumping production database from Heroku (works only if you have access to the database)"
+        result = system "curl -o fixtures/trunk-#{id}.dump \`heroku pgbackups:url #{id} -a cocoapods-trunk-service\`"
+        unless result
+          raise "Could not dump #{id} from production database."
+        end
       end
     end
   end
@@ -155,7 +164,7 @@ begin
     end
 
     desc "Run all specs"
-    task :all => :'db:test:seed_from_dump' do
+    task :all do
       sh "bundle exec bacon #{specs}"
     end
   end
