@@ -135,6 +135,10 @@ begin
       end
       
       puts "Installed Postgres app, this app hosts your database while it is being ran."
+
+      puts "You will need to add the following line to your ~/.bash_profile or ~/.bashrc file:"
+      puts "\"export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin\""
+
     end
     
   end
