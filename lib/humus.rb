@@ -37,6 +37,10 @@ module Humus
     if seed
       # Load Humus Rakefile tasks.
       #
+      # FIXME This is very optimistic and assumes
+      # there's no collision between project tasks
+      # and Humus tasks.
+      #
       load File.expand_path('../../Rakefile', __FILE__)
       
       begin
@@ -46,7 +50,7 @@ module Humus
         
         # All good. Call the code that needs the snapshot.
         #
-        yield
+        block_given? && yield
       rescue RuntimeError => e # TODO Be more specific.
         unless @retried
           p e
@@ -62,7 +66,7 @@ module Humus
         @retried = true
       end
     else
-      yield
+      block_given? && yield
     end
   end
   
