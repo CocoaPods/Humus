@@ -82,8 +82,8 @@ begin
     task :reset => [:drop, :bootstrap]
     
     namespace :test do
-      desc 'Seed test DB'
-      task :seed => :test_env do
+      desc 'Seed test DB from e.g. a production dump'
+      task :seed_from_dump => :test_env do
         puts "Restoring #{ENV['RACK_ENV']} database from spec/fixtures/trunk-b008.dump"
         `pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test spec/fixtures/trunk-b008.dump`
       end
@@ -155,7 +155,7 @@ begin
     end
 
     desc "Run all specs"
-    task :all => :'db:test:seed' do
+    task :all => :'db:test:seed_from_dump' do
       sh "bundle exec bacon #{specs}"
     end
   end
