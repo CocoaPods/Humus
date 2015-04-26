@@ -71,84 +71,91 @@ describe 'Cascading DELETEs' do
   def delete_afnetworking
     Domain.pods.delete.where(id: afnetworking.id).kick
   end
-
-  describe 'afnetworking' do
-    describe 'before migrating' do
-      it 'has an existing pod' do
-        afnetworking.id.should == 9
-      end
-
-      it 'has existing versions' do
-        afnetworking_versions.size.should == 41 # Versions of the pod.
-      end
   
-      it 'has existing commits' do
-        afnetworking_commits.size.should == 7 # Commits of the first version.
-      end
-      
-      it 'has existing owners pods' do
-        afnetworking_owners_pods.size.should == 1
-      end
-      
-      it 'has existing github pod metrics' do
-        afnetworking_github_pod_metrics.size.should == 1
-      end
-      
-      it 'has existing cocoadocs cloc metrics' do
-        afnetworking_cocoadocs_cloc_metrics.size.should == 3
-      end
-      
-      it 'has existing cocoadocs pod metrics' do
-        afnetworking_cocoadocs_pod_metrics.size.should == 1
-      end
+  Humus.with_snapshot('b008') do
+    # Get the test specific database setup.
+    #
+    require File.expand_path '../../database', __FILE__
     
-      it 'cannot delete the pod' do
-        lambda { delete_afnetworking }.
-          should.raise(PG::ForeignKeyViolation)
-      end
-    end
-  
-    describe 'after migrating' do
-      before do
-        # We only need to migrate and delete once.
-        #
-        unless @migrated
-          puts "Migrating test database."
-          `RACK_ENV=test bundle exec rake db:migrate`
-      
-          delete_afnetworking
+    describe 'afnetworking' do
+      describe 'before migrating' do
+        it 'has an existing pod' do
+          afnetworking.id.should == 9
         end
-        @migrated =  true
-      end
+
+        it 'has existing versions' do
+          afnetworking_versions.size.should == 41 # Versions of the pod.
+        end
+  
+        it 'has existing commits' do
+          afnetworking_commits.size.should == 7 # Commits of the first version.
+        end
+      
+        it 'has existing owners pods' do
+          afnetworking_owners_pods.size.should == 1
+        end
+      
+        it 'has existing github pod metrics' do
+          afnetworking_github_pod_metrics.size.should == 1
+        end
+      
+        it 'has existing cocoadocs cloc metrics' do
+          afnetworking_cocoadocs_cloc_metrics.size.should == 3
+        end
+      
+        it 'has existing cocoadocs pod metrics' do
+          afnetworking_cocoadocs_pod_metrics.size.should == 1
+        end
     
-      it 'has no pod' do
-        afnetworking_pods.size.should == 0
+        it 'cannot delete the pod' do
+          lambda { delete_afnetworking }.
+            should.raise(PG::ForeignKeyViolation)
+        end
       end
+  
+      describe 'after migrating' do
+        before do
+          # We only need to migrate and delete once.
+          #
+          unless @migrated
+            puts "Migrating test database."
+            `RACK_ENV=test bundle exec rake db:migrate`
+      
+            delete_afnetworking
+          end
+          @migrated =  true
+        end
     
-      it 'has no more associated versions' do
-        afnetworking_versions.size.should == 0
-      end
+        it 'has no pod' do
+          afnetworking_pods.size.should == 0
+        end
     
-      it 'has no more associated commits' do
-        afnetworking_commits.size.should == 0
-      end
+        it 'has no more associated versions' do
+          afnetworking_versions.size.should == 0
+        end
+    
+        it 'has no more associated commits' do
+          afnetworking_commits.size.should == 0
+        end
       
-      it 'has no more associated owners pods' do
-        afnetworking_owners_pods.size.should == 0
-      end
+        it 'has no more associated owners pods' do
+          afnetworking_owners_pods.size.should == 0
+        end
       
-      it 'has no more associated github pod metrics' do
-        afnetworking_github_pod_metrics.size.should == 0
-      end
+        it 'has no more associated github pod metrics' do
+          afnetworking_github_pod_metrics.size.should == 0
+        end
       
-      it 'has no more associated cocoadocs cloc metrics' do
-        afnetworking_cocoadocs_cloc_metrics.size.should == 0
-      end
+        it 'has no more associated cocoadocs cloc metrics' do
+          afnetworking_cocoadocs_cloc_metrics.size.should == 0
+        end
       
-      it 'has no more associated cocoadocs pod metrics' do
-        afnetworking_cocoadocs_pod_metrics.size.should == 0
+        it 'has no more associated cocoadocs pod metrics' do
+          afnetworking_cocoadocs_pod_metrics.size.should == 0
+        end
       end
     end
+    
   end
   
 end
