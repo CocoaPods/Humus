@@ -3,26 +3,38 @@ require 'rake'
 # Helper module for all projects in Strata that need
 # Database access and management.
 #
+# Load this in Strata via '../Humus/lib/humus'.
+# Then use the Humus helper methods:
+#  * Humus.with_snapshot(name, options = {})
+#
 module Humus
   
   # Load a specific snapshot into the database.
   #
+  # Use this in integration tests in a CP project.
+  #
+  # Note: Does not ROLLBACK yet!
+  #
+  # @param [String] name The name of the snapshot.
+  # @param [Hash]   options Options: env, seed, rollback (not implemented yet).
+  #
   # @example 
   #   Humus.with_snapshot('b008') do
-  #     # Do something for which you needs snapshot b008.
+  #     # Do something for which you need snapshot b008.
   #   end
   #
   def self.with_snapshot name, options = {}
-    environment = options[:env] || ENV['RACK_ENV'] || 'test'
-    load_dump = options[:load_dump] || true
+    environment = options[:env]      || ENV['RACK_ENV'] || 'test'
+    seed        = options[:seed]     || true
+    rollback    = options[:rollback] && raise("Option :rollback not implemented yet.")
     
     # Currently, we only want this for tests.
     #
     return unless environment == 'test' 
     
-    # If load_dump is falsy, just yield.
+    # If seed is falsy, just yield.
     #
-    if load_dump
+    if seed
       # Load Rakefile tasks.
       #
       load 'Rakefile'
