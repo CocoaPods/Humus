@@ -28,8 +28,6 @@ Sequel::Migrator.run(
 
 # Metrics migrations.
 #
-# TODO Figure out a way to merge this with schema_info.
-#
 Sequel::Migrator.run(
   DB,
   File.join(ROOT, 'migrations/metrics'),
@@ -39,6 +37,8 @@ Sequel::Migrator.run(
   version: 4
 )
 
+# Cocoadocs migrations.
+#
 Sequel::Migrator.run(
   DB,
   File.join(ROOT, 'migrations/cocoadocs'),
