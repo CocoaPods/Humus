@@ -35,9 +35,9 @@ module Humus
     # If seed is falsy, just yield.
     #
     if seed
-      # Load Rakefile tasks.
+      # Load Humus Rakefile tasks.
       #
-      load 'Rakefile'
+      load File.expand_path('../../Rakefile', __FILE__)
       
       begin
         # Seed from dump.

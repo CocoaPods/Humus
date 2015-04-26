@@ -85,10 +85,11 @@ begin
       desc 'Seed test DB from a named production dump'
       task :seed_from_dump, [:id] => :test_env do |_, args|
         id = args.id || 'b008'
-        puts "Restoring #{ENV['RACK_ENV']} database from fixtures/trunk-#{id}.dump"
-        result = system "pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test fixtures/trunk-#{id}.dump"
+        target_path = File.expand_path("../fixtures/trunk-#{id}.dump", __FILE__)
+        puts "Restoring #{ENV['RACK_ENV']} database from #{target_path}"
+        result = system "pg_restore --single-transaction --no-privileges --clean --no-acl --no-owner -h localhost -d trunk_cocoapods_org_test #{target_path}"
         if result
-          puts "Database #{ENV['RACK_ENV']} restored from fixtures/trunk-#{id}.dump"
+          puts "Database #{ENV['RACK_ENV']} restored from #{target_path}"
         else
           raise "Dump #{id} could not be found."
         end
@@ -97,9 +98,12 @@ begin
       desc "Get prod dump."
       task :dump, :id do |_, args|
         id = args.id || 'b008'
+        target_path = File.expand_path("../fixtures/trunk-#{id}.dump", __FILE__)
         puts "Dumping production database from Heroku (works only if you have access to the database)"
-        result = system "curl -o fixtures/trunk-#{id}.dump \`heroku pgbackups:url #{id} -a cocoapods-trunk-service\`"
-        unless result
+        result = system "curl -o #{target_path} \`heroku pgbackups:url #{id} -a cocoapods-trunk-service\`"
+        if result
+          puts "Production database snapshot #{id} dumped into #{target_path}"
+        else
           raise "Could not dump #{id} from production database."
         end
       end
