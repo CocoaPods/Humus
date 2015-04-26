@@ -39,6 +39,12 @@ describe 'Cascading DELETEs' do
   def afnetworking_commits
     Domain.commits.where(pod_version_id: afnetworking_version.id).all
   end
+  
+  # Freshly loaded owners pods.
+  #
+  def afnetworking_owners_pods
+    Domain.owners_pods.where(pod_id: afnetworking.id).all
+  end
 
   # Delete the pod.
   #
@@ -59,19 +65,28 @@ describe 'Cascading DELETEs' do
       it 'has existing commits' do
         afnetworking_commits.size.should == 7 # Commits of the first version.
       end
+      
+      it 'has existing owners pods' do
+        afnetworking_owners_pods.size.should == 1
+      end
     
       it 'cannot delete the pod' do
         lambda { delete_afnetworking }.
-        should.raise(PG::ForeignKeyViolation)
+          should.raise(PG::ForeignKeyViolation)
       end
     end
   
     describe 'after migrating' do
       before do
-        puts "Migrating test database."
-        `RACK_ENV=test bundle exec rake db:migrate`
+        # We only need to migrate and delete once.
+        #
+        unless @migrated
+          puts "Migrating test database."
+          `RACK_ENV=test bundle exec rake db:migrate`
       
-        delete_afnetworking
+          delete_afnetworking
+        end
+        @migrated =  true
       end
     
       it 'has no pod' do
@@ -84,6 +99,10 @@ describe 'Cascading DELETEs' do
     
       it 'has no more associated commits' do
         afnetworking_commits.size.should == 0
+      end
+      
+      it 'has no more associated owners pods' do
+        afnetworking_owners_pods.size.should == 0
       end
     end
   end
