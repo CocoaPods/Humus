@@ -2,6 +2,8 @@
 #
 require File.expand_path '../../spec_helper', __FILE__
 
+# A very explicitly formulated spec.
+#
 describe 'Cascading DELETEs' do
 
   # A cached pod.
@@ -45,6 +47,24 @@ describe 'Cascading DELETEs' do
   def afnetworking_owners_pods
     Domain.owners_pods.where(pod_id: afnetworking.id).all
   end
+  
+  # Freshly loaded github pod metrics.
+  #
+  def afnetworking_github_pod_metrics
+    Domain.github_pod_metrics.where(pod_id: afnetworking.id).all
+  end
+  
+  # Freshly loaded cocoadocs cloc metrics.
+  #
+  def afnetworking_cocoadocs_cloc_metrics
+    Domain.cocoadocs_cloc_metrics.where(pod_id: afnetworking.id).all
+  end
+  
+  # Freshly loaded cocoadocs pod metrics.
+  #
+  def afnetworking_cocoadocs_pod_metrics
+    Domain.cocoadocs_pod_metrics.where(pod_id: afnetworking.id).all
+  end
 
   # Delete the pod.
   #
@@ -68,6 +88,18 @@ describe 'Cascading DELETEs' do
       
       it 'has existing owners pods' do
         afnetworking_owners_pods.size.should == 1
+      end
+      
+      it 'has existing github pod metrics' do
+        afnetworking_github_pod_metrics.size.should == 1
+      end
+      
+      it 'has existing cocoadocs cloc metrics' do
+        afnetworking_cocoadocs_cloc_metrics.size.should == 3
+      end
+      
+      it 'has existing cocoadocs pod metrics' do
+        afnetworking_cocoadocs_pod_metrics.size.should == 1
       end
     
       it 'cannot delete the pod' do
@@ -103,6 +135,18 @@ describe 'Cascading DELETEs' do
       
       it 'has no more associated owners pods' do
         afnetworking_owners_pods.size.should == 0
+      end
+      
+      it 'has no more associated github pod metrics' do
+        afnetworking_github_pod_metrics.size.should == 0
+      end
+      
+      it 'has no more associated cocoadocs cloc metrics' do
+        afnetworking_cocoadocs_cloc_metrics.size.should == 0
+      end
+      
+      it 'has no more associated cocoadocs pod metrics' do
+        afnetworking_cocoadocs_pod_metrics.size.should == 0
       end
     end
   end

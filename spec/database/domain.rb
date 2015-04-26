@@ -7,6 +7,9 @@ Domain = Flounder.domain(DB) do |dom|
   dom.entity(:versions, :version, 'pod_versions')
   
   dom.entity(:owners_pods, :owners_pod, 'owners_pods')
+  dom.entity(:github_pod_metrics, :github_pod_metric, 'github_pod_metrics')
+  dom.entity(:cocoadocs_cloc_metrics, :cocoadocs_cloc_metric, 'cocoadocs_cloc_metrics')
+  dom.entity(:cocoadocs_pod_metrics, :cocoadocs_pod_metric, 'cocoadocs_pod_metrics')
 end
 
 # Define all tables as top-level methods on Domain.
