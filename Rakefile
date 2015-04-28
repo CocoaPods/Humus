@@ -18,14 +18,14 @@ begin
 
   task :rack_env do
     ENV['RACK_ENV'] ||= 'development'
-    
+
     if ENV['RACK_ENV'] == 'production'
       puts "Are you very very sure what you are doing? very/no/maybe"
       exit unless STDIN.gets.strip == 'very'
-      
+
       puts "Are you really really sure? really/naah"
       exit unless STDIN.gets.strip == 'really'
-      
+
       puts "Last chance: Absolutely sure? absolutely/nope"
       exit unless STDIN.gets.strip == 'absolutely'
     end
@@ -56,7 +56,7 @@ begin
     desc 'Run migrations'
     task :migrate => :rack_env do
       Rake::Task[:env].invoke
-      
+
       # Run migrations.
       #
       require 'lib/migrate'
@@ -80,7 +80,7 @@ begin
 
     desc 'Drop and then bootstrap the DB for RACK_ENV'
     task :reset => [:drop, :bootstrap]
-    
+
     namespace :test do
       desc 'Seed test DB from a named production dump'
       task :seed_from_dump, [:id] => :test_env do |_, args|
@@ -94,7 +94,7 @@ begin
           raise "Dump #{id} could not be found."
         end
       end
-      
+
       desc "Get prod dump."
       task :dump, :id do |_, args|
         id = args.id || 'b008'
@@ -109,40 +109,39 @@ begin
       end
     end
   end
-  
+
   desc 'Install tools for running the site'
   task :install_tools do
     if `mdfind kind:application Postgres93.app`.length == 0 && `mdfind kind:application Postgres.app`.length == 0
       puts "Postgres93.app was not found, would you like us to install it for you? yes/no"
       puts "this will install homebrew, and brew cask for you if not installed."
-      
+
       exit unless STDIN.gets.strip == 'yes'
-      
+
       if `which brew`.length == 0
         Bundler.with_clean_env do 
           `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
         end
       end
-      
+
       if Dir.exists?("/usr/local/Library/Taps/caskroom/homebrew-cask") == false
         Bundler.with_clean_env do 
           `brew install caskroom/cask/brew-cask`
         end
       end
-      
-      Bundler.with_clean_env do 
+
+      Bundler.with_clean_env do
         `brew cask install postgres`
       end
-      
+
       puts "Installed Postgres app, this app hosts your database while it is being ran."
 
       puts "You will need to add the following line to your ~/.bash_profile or ~/.bashrc file:"
       puts "\"export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin\""
 
     end
-    
   end
-  
+
   desc 'Migrate CocoaPods db into local'
   task :migrate_from_heroku do
     database_url = ""
