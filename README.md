@@ -27,9 +27,17 @@ Ask for permissions if you need access.
 
 Then:
 
-1. Test the migrations vigorously locally.
-2. Push the code to Heroku: `git push heroku master`.
-3. Run the migrations: `heroku run bundle exec rake db:migrate`
+1. Set the versions in `migrate.rb` to where you'd like them to be in production.
+2. Test the migrations vigorously locally: `bundle exec rake db:migrate`.
+3. Use automated tests. There is an migration spec example here: `spec/integration/delete_cascade_spec.rb`.
+4. Verify that you are happy with the migration.
+5. Push the code to Heroku: `git push heroku master`.
+6. Consider making a manual backup on Heroku.
+7. Run the migrations in production: `heroku run bundle exec rake db:migrate`
+8. Verify that everything went well. If not, depending on the situation, consider:
+  * Reverting to the backup.
+  * Adding another migration.
+9. If all went well: Congratulations!
 
 Answer all verification questions.
 
