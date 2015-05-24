@@ -1,42 +1,20 @@
+require_relative 'migration_helpers'
+
 # Since we've designed metrics/docs tables to revolve around
 # the pods table, but be independent of each other, we can
 # run all trunk migrations first, then all others.
 #
+migrate_to :trunk, version: 13
 
-# Helper method
+# These next few lines mark the current production migration versions.
 #
-def foreign_key_delete_cascade source_table, target_table, foreign_key
-  <<-SQL
-    ALTER TABLE #{source_table} DROP CONSTRAINT #{source_table}_#{foreign_key}_fkey; 
-    ALTER TABLE #{source_table} ADD FOREIGN KEY (#{foreign_key}) 
-      REFERENCES #{target_table} (id)  
-      ON DELETE CASCADE;
-  SQL
-end
-
-# NOTE Set the versions to the ones you want to migrate to.
+# Important:
+# Update and push only just before you are going to migrate in production.
 #
+migrate_to :metrics,   version:  5
+migrate_to :cocoadocs, version: 10
+migrate_to :stats,     version:  1
 
-# Trunk migrations.
+# Write the resulting schema into a file.
 #
-Sequel::Migrator.run(
-  DB,
-  File.join(ROOT, 'migrations/trunk'),
-  table: 'schema_info',
-  version: 13
-)
-
-["metrics", "cocoadocs", "stats"].each do |db|
-  
-  Sequel::Migrator.run(
-    DB,
-    File.join(ROOT, "migrations/#{db}"),
-    # This enables us to have separate migrations
-    # for each app.
-    table: "schema_info_#{db}",
-    version: Dir.glob("migrations/#{db}/*").count + 1
-  )
-
-end
-
 File.open('migrations/schema.txt', 'w') { |file| file.write(schema) }
