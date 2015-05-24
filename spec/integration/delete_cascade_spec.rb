@@ -84,7 +84,7 @@ describe 'Cascading DELETEs' do
         end
 
         it 'has existing versions' do
-          afnetworking_versions.size.should == 41 # Versions of the pod.
+          afnetworking_versions.size.should == 43 # Versions of the pod.
         end
   
         it 'has existing commits' do
@@ -92,7 +92,7 @@ describe 'Cascading DELETEs' do
         end
       
         it 'has existing owners pods' do
-          afnetworking_owners_pods.size.should == 1
+          afnetworking_owners_pods.size.should == 4
         end
       
         it 'has existing github pod metrics' do
