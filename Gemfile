@@ -22,7 +22,7 @@ end
 
 group :development do
   gem 'foreman'
-  gem 'heroku'
+  # gem 'heroku' # Install https://toolbelt.heroku.com.
 end
 
 group :rake do
