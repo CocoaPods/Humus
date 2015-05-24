@@ -26,27 +26,17 @@ Sequel::Migrator.run(
   version: 13
 )
 
-# Metrics migrations.
-#
-Sequel::Migrator.run(
-  DB,
-  File.join(ROOT, 'migrations/metrics'),
-  # This enables us to have separate migrations
-  # for each app.
-  table: 'schema_info_metrics',
-  version: 5
-)
+["metrics", "cocoadocs", "stats"].each do |db|
+  
+  Sequel::Migrator.run(
+    DB,
+    File.join(ROOT, "migrations/#{db}"),
+    # This enables us to have separate migrations
+    # for each app.
+    table: "schema_info_#{db}",
+    version: Dir.glob("migrations/#{db}/*").count + 1
+  )
 
-# Cocoadocs migrations.
-#
-Sequel::Migrator.run(
-  DB,
-  File.join(ROOT, 'migrations/cocoadocs'),
-  # This enables us to have separate migrations
-  # for each app.
-  table: 'schema_info_cocoadocs',
-  version: 9
-)
-
+end
 
 File.open('migrations/schema.txt', 'w') { |file| file.write(schema) }
