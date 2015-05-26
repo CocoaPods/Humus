@@ -13,7 +13,7 @@ migrate_to :trunk, version: 13
 #
 migrate_to :metrics,   version:  5
 migrate_to :cocoadocs, version: 10
-migrate_to :stats,     version:  2
+migrate_to :stats,     version:  3
 
 # Write the resulting schema into a file.
 #

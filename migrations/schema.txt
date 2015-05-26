@@ -201,5 +201,7 @@ stats_metrics
 | updated_at      | 1114 | "timestamp without time zone" | nil                                         | true       | false       | :datetime | nil          |
 | extension_week  | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
 | extension_total | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
+| watch_week      | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
+| watch_total     | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
 +-----------------+------+-------------------------------+---------------------------------------------+------------+-------------+-----------+--------------+
 
