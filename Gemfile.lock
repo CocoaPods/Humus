@@ -93,3 +93,6 @@ DEPENDENCIES
   sinatra
   terminal-table
   thin
+
+BUNDLED WITH
+   1.10.0
