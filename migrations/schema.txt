@@ -205,5 +205,8 @@ stats_metrics
 | extension_total | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
 | watch_week      | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
 | watch_total     | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
+| pod_try_week    | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
+| pod_try_total   | 23   | "integer"                     | "0"                                         | true       | false       | :integer  | 0            |
+| is_active       | 16   | "boolean"                     | "false"                                     | true       | false       | :boolean  | false        |
 +-----------------+------+-------------------------------+---------------------------------------------+------------+-------------+-----------+--------------+
 
