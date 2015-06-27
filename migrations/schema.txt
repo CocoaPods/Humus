@@ -16,7 +16,7 @@ cocoadocs_pod_metrics
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 | id                      | 23   | "integer"                     | "nextval('cocoadocs_pod_metrics_id_seq'::regclass)" | false      | true        | :integer  | nil          |
 | pod_id                  | 23   | "integer"                     | nil                                                 | false      | false       | :integer  | nil          |
-| download_size           | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
+| install_size            | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
 | total_files             | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
 | total_comments          | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
 | total_lines_of_code     | 23   | "integer"                     | nil                                                 | true       | false       | :integer  | nil          |
