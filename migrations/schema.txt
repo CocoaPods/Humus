@@ -32,7 +32,7 @@ cocoadocs_pod_metrics
 | notability              | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
 | dominant_language       | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | quality_estimate        | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
-| carthage_support        | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
+| builds_independently    | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
 | is_vendored_framework   | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
