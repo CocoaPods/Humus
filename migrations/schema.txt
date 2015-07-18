@@ -21,7 +21,7 @@ cocoadocs_pod_metrics
 | quality_estimate        | 23   | "integer"                     | "0"                                                 | true       | false       | :integer  | 0            |
 | builds_independently    | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
 | is_vendored_framework   | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
-| changelog_url           | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
+| rendered_changelog_url  | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | rendered_summary        | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
