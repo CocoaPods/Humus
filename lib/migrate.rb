@@ -12,7 +12,7 @@ migrate_to :trunk, version: 14
 # Update and push only just before you are going to migrate in production.
 #
 migrate_to :metrics,   version:  5
-migrate_to :cocoadocs, version: 13
+migrate_to :cocoadocs, version: 15
 migrate_to :stats,     version:  4
 
 # Write the resulting schema into a file.
