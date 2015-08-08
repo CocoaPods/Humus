@@ -117,6 +117,7 @@ pod_versions
 | created_at | 1114 | "timestamp without time zone" | nil                                        | true       | false       | :datetime | nil          |
 | updated_at | 1114 | "timestamp without time zone" | nil                                        | true       | false       | :datetime | nil          |
 | pod_id     | 23   | "integer"                     | nil                                        | false      | false       | :integer  | nil          |
+| deleted    | 16   | "boolean"                     | "false"                                    | true       | false       | :boolean  | false        |
 +------------+------+-------------------------------+--------------------------------------------+------------+-------------+-----------+--------------+
 
 pods
