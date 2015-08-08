@@ -4,7 +4,7 @@ require_relative 'migration_helpers'
 # the pods table, but be independent of each other, we can
 # run all trunk migrations first, then all others.
 #
-migrate_to :trunk, version: 14
+migrate_to :trunk, version: 15
 
 # These next few lines mark the current production migration versions.
 #
