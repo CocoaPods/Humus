@@ -199,3 +199,17 @@ stats_metrics
 | is_active       | 16   | "boolean"                     | "false"                                     | true       | false       | :boolean  | false        |
 +-----------------+------+-------------------------------+---------------------------------------------+------------+-------------+-----------+--------------+
 
+total_stats
++------------------+------+-------------------------------+-------------------------------------------+------------+-------------+-----------+--------------+
+| name             | oid  | db_type                       | default                                   | allow_null | primary_key | type      | ruby_default |
++------------------+------+-------------------------------+-------------------------------------------+------------+-------------+-----------+--------------+
+| id               | 23   | "integer"                     | "nextval('total_stats_id_seq'::regclass)" | false      | true        | :integer  | nil          |
+| projects_total   | 23   | "integer"                     | "0"                                       | true       | false       | :integer  | 0            |
+| download_total   | 23   | "integer"                     | "0"                                       | true       | false       | :integer  | 0            |
+| app_total        | 23   | "integer"                     | "0"                                       | true       | false       | :integer  | 0            |
+| tests_total      | 23   | "integer"                     | "0"                                       | true       | false       | :integer  | 0            |
+| extensions_total | 23   | "integer"                     | "0"                                       | true       | false       | :integer  | 0            |
+| created_at       | 1114 | "timestamp without time zone" | nil                                       | true       | false       | :datetime | nil          |
+| updated_at       | 1114 | "timestamp without time zone" | nil                                       | true       | false       | :datetime | nil          |
++------------------+------+-------------------------------+-------------------------------------------+------------+-------------+-----------+--------------+
+
