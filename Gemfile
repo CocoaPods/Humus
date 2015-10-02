@@ -30,6 +30,10 @@ group :rake do
   gem 'terminal-table'
 end
 
+group :dumping do
+  gem 's3'
+end
+
 # Pure test gems.
 #
 group :test do
