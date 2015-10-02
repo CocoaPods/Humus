@@ -1,9 +1,9 @@
-require 'rake'
+require File.expand_path('../snapshots', __FILE__)
 
 # Helper module for all projects in Strata that need
 # Database access and management.
 #
-# Load this in Strata via '../Humus/lib/humus'.
+# Load this in Strata via '../Humus/lib/cocoapods-humus'.
 # Then use the Humus helper methods:
 #  * Humus.with_snapshot(name, options = {})
 #
@@ -35,18 +35,17 @@ module Humus
     # If seed is falsy, just yield.
     #
     if seed
-      # Load Humus Rakefile tasks.
-      #
-      # FIXME This is very optimistic and assumes
-      # there's no collision between project tasks
-      # and Humus tasks.
-      #
-      load File.expand_path('../../Rakefile', __FILE__)
+      access_key_id = ENV['DUMP_ACCESS_KEY_ID']
+      secret_access_key = ENV['DUMP_SECRET_ACCESS_KEY']
+      unless access_key_id && secret_access_key
+        raise 'Set both DUMP_ACCESS_KEY_ID and DUMP_SECRET_ACCESS_KEY in ENV.'
+      end
       
+      snapshots = Snapshots.new(access_key_id, secret_access_key)
       begin
         # Seed from dump.
         #
-        Rake::Task['db:test:seed_from_dump'].invoke(name)
+        snapshots.seed_from_dump(name)
         
         # All good. Call the code that needs the snapshot.
         #
@@ -56,8 +55,7 @@ module Humus
           p e
           
           # Load snapshot.
-          #
-          Rake::Task['db:test:dump'].invoke(name)
+          snapshots.dump_prepared(name)
           
           # And retry to seed.
           #
