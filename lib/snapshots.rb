@@ -10,7 +10,9 @@ module Humus
       @secret_access_key = secret_access_key
     end
     
-    def dump_prepared id
+    # Download prepared dump from S3 (needs credentials).
+    #
+    def load_prepared_dump id
       name = "trunk-#{id}.dump"
       target_path = File.expand_path("../../fixtures/#{name}", __FILE__)
       
@@ -34,6 +36,8 @@ module Humus
       puts "Prepared DB test snapshot #{id} downloaded to #{target_path}"
     end
     
+    # Seed the database from a downloaded dump.
+    #
     def seed_from_dump id
       target_path = File.expand_path("../../fixtures/trunk-#{id}.dump", __FILE__)
       raise "Dump #{id} could not be found." unless File.exists? target_path
@@ -58,6 +62,40 @@ module Humus
       end
     end
     
+    # Dump the production DB.
+    #
+    # TODO Also create a sanitized dump and upload to S3? (For now, we can do it manually)
+    #
+    # Preparing a dump.
+    #
+    # 1. SQL:
+    #
+    # create or replace function random_string(length integer) returns text as
+    # $$
+    # declare
+    #   chars text[] := '{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}';
+    #   result text := '';
+    #   i integer := 0;
+    # begin
+    #   if length < 0 then
+    #     raise exception 'Given length cannot be less than 0';
+    #   end if;
+    #   for i in 1..length loop
+    #     result := result || chars[1+random()*(array_length(chars, 1)-1)];
+    #   end loop;
+    #   return result;
+    # end;
+    # $$ language plpgsql;
+    #
+    # UPDATE owners
+    # SET
+    # 	name = concat(random_string(1), lower(random_string(5)), ' ', random_string(1), lower(random_string(7))),
+    # 	email = lower(concat(random_string(15), '@', random_string(10), '.', random_string(3)))
+    # TRUNCATE TABLE sessions;
+    #
+    # 2. Run
+    # $ pg_dump -Fc trunk_cocoapods_org_test > fixtures/trunk-<date>-<Heroku snapshot id>.dump
+    #
     def dump_prod id
       target_path = File.expand_path("../../fixtures/trunk-#{id}.dump", __FILE__)
       puts "Dumping production database from Heroku (works only if you have access to the database)"
