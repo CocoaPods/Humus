@@ -92,7 +92,7 @@ begin
         
         require File.expand_path '../lib/snapshots', __FILE__
         snaps = Humus::Snapshots.new(access_key_id, secret_access_key)
-        snaps.dump_prepared(args.id)
+        snaps.load_prepared_dump(args.id)
       end
       
       desc 'Seed test DB from a named production dump'
@@ -101,36 +101,6 @@ begin
         snaps = Humus::Snapshots.new
         snaps.seed_from_dump(args.id)
       end
-      
-      # Preparing a dump.
-      #
-      # 1. SQL:
-      #
-      # create or replace function random_string(length integer) returns text as
-      # $$
-      # declare
-      #   chars text[] := '{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}';
-      #   result text := '';
-      #   i integer := 0;
-      # begin
-      #   if length < 0 then
-      #     raise exception 'Given length cannot be less than 0';
-      #   end if;
-      #   for i in 1..length loop
-      #     result := result || chars[1+random()*(array_length(chars, 1)-1)];
-      #   end loop;
-      #   return result;
-      # end;
-      # $$ language plpgsql;
-      #
-      # UPDATE owners
-      # SET
-      # 	name = concat(random_string(1), lower(random_string(5)), ' ', random_string(1), lower(random_string(7))),
-      # 	email = lower(concat(random_string(15), '@', random_string(10), '.', random_string(3)))
-      # TRUNCATE TABLE sessions;
-      #
-      # 2. Run
-      # $ pg_dump -Fc trunk_cocoapods_org_test > fixtures/trunk-<date>-<Heroku snapshot id>.dump
       
       desc "Get prod dump."
       task :prod_dump, :id do |_, args|
