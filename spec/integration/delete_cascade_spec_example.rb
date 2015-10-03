@@ -72,6 +72,9 @@ describe 'Cascading DELETEs' do
     Domain.pods.delete.where(id: afnetworking.id).kick
   end
   
+  # This loads the (now nonexistent) snapshot with name b008.
+  # The snapshot contains a state before the migration this
+  # test set is about.
   Humus.with_snapshot('b008') do
     # Get the test specific database setup.
     #
