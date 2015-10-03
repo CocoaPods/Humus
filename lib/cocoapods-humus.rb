@@ -55,7 +55,7 @@ module Humus
           p e
           
           # Load snapshot.
-          snapshots.dump_prepared(name)
+          snapshots.download_prepared_dump(name)
           
           # And retry to seed.
           #
