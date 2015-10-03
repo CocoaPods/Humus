@@ -1,1 +1,1 @@
-This is where Trunk dumps go.
+Sanitized trunk dumps are downloaded into this directory (repo or gem).
