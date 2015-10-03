@@ -1,5 +1,7 @@
 module Humus
   
+  # Helper class for downloading/seeding dumps.
+  #
   class Snapshots
     
     attr_reader :access_key_id
@@ -68,33 +70,33 @@ module Humus
     #
     # Preparing a dump.
     #
-    # 1. SQL:
+    # 1. Make a snapshot on Heroku.
+    # 2. SQL:
+    #   create or replace function random_string(length integer) returns text as
+    #   $$
+    #   declare
+    #     chars text[] := '{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}';
+    #     result text := '';
+    #     i integer := 0;
+    #   begin
+    #     if length < 0 then
+    #       raise exception 'Given length cannot be less than 0';
+    #     end if;
+    #     for i in 1..length loop
+    #       result := result || chars[1+random()*(array_length(chars, 1)-1)];
+    #     end loop;
+    #     return result;
+    #   end;
+    #   $$ language plpgsql;
+    #   
+    #   UPDATE owners
+    #   SET
+    #   	name = concat(random_string(1), lower(random_string(5)), ' ', random_string(1), lower(random_string(7))),
+    #   	email = lower(concat(random_string(15), '@', random_string(10), '.', random_string(3)))
+    #   TRUNCATE TABLE sessions;
     #
-    # create or replace function random_string(length integer) returns text as
-    # $$
-    # declare
-    #   chars text[] := '{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}';
-    #   result text := '';
-    #   i integer := 0;
-    # begin
-    #   if length < 0 then
-    #     raise exception 'Given length cannot be less than 0';
-    #   end if;
-    #   for i in 1..length loop
-    #     result := result || chars[1+random()*(array_length(chars, 1)-1)];
-    #   end loop;
-    #   return result;
-    # end;
-    # $$ language plpgsql;
-    #
-    # UPDATE owners
-    # SET
-    # 	name = concat(random_string(1), lower(random_string(5)), ' ', random_string(1), lower(random_string(7))),
-    # 	email = lower(concat(random_string(15), '@', random_string(10), '.', random_string(3)))
-    # TRUNCATE TABLE sessions;
-    #
-    # 2. Run
-    # $ pg_dump -Fc trunk_cocoapods_org_test > fixtures/trunk-<date>-<Heroku snapshot id>.dump
+    # 3. Run
+    #   $ pg_dump -Fc trunk_cocoapods_org_test > fixtures/trunk-<date>-<Heroku snapshot id>.dump
     #
     def dump_prod id
       target_path = File.expand_path("../../fixtures/trunk-#{id}.dump", __FILE__)
