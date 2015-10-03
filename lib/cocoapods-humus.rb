@@ -13,6 +13,11 @@ module Humus
   #
   # Use this in integration tests in a CP project.
   #
+  # For this to work,
+  #   ENV['DUMP_ACCESS_KEY_ID']
+  #   ENV['DUMP_SECRET_ACCESS_KEY']
+  # need to be set.
+  #
   # Note: Does not ROLLBACK yet!
   #
   # @param [String] name The name of the snapshot.

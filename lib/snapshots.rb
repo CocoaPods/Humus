@@ -14,7 +14,7 @@ module Humus
     
     # Download prepared dump from S3 (needs credentials).
     #
-    def load_prepared_dump id
+    def download_prepared_dump id
       name = "trunk-#{id}.dump"
       target_path = File.expand_path("../../fixtures/#{name}", __FILE__)
       
