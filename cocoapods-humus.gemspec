@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = 'CocoaPods database helper gem.'
   s.summary = 'Manages DB dumps for testing.'
 
-  s.files = Dir["fixtures/README.md", "lib/cocoapods-humus.rb", "lib/snapshots.rb"]
+  s.files = Dir["fixtures/README.md", "lib/cocoapods-humus.rb", "lib/snapshots.rb", __FILE__]
 
   # Needed to download sanitized dumps stored there.
   s.add_runtime_dependency 's3', '~> 0.3'

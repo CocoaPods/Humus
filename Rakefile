@@ -6,6 +6,7 @@ end
 begin
   require 'rubygems'
   require 'bundler/setup'
+  require 'bundler/gem_tasks'
 
   task :env do
     $LOAD_PATH.unshift(File.expand_path('../', __FILE__))
@@ -89,19 +90,19 @@ begin
         unless access_key_id && secret_access_key
           raise 'Set both DUMP_ACCESS_KEY_ID and DUMP_SECRET_ACCESS_KEY in ENV.'
         end
-        
+
         require File.expand_path '../lib/snapshots', __FILE__
         snaps = Humus::Snapshots.new(access_key_id, secret_access_key)
         snaps.download_prepared_dump(args.id)
       end
-      
+
       desc 'Seed test DB from a named production dump'
       task :seed_from_dump, [:id] => :test_env do |_, args|
         require File.expand_path '../lib/snapshots', __FILE__
         snaps = Humus::Snapshots.new
         snaps.seed_from_dump(args.id)
       end
-      
+
       desc "Get prod dump."
       task :prod_dump, :id do |_, args|
         require File.expand_path '../lib/snapshots', __FILE__
@@ -120,13 +121,13 @@ begin
       exit unless STDIN.gets.strip == 'yes'
 
       if `which brew`.length == 0
-        Bundler.with_clean_env do 
+        Bundler.with_clean_env do
           `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
         end
       end
 
       if Dir.exists?("/usr/local/Library/Taps/caskroom/homebrew-cask") == false
-        Bundler.with_clean_env do 
+        Bundler.with_clean_env do
           `brew install caskroom/cask/brew-cask`
         end
       end
@@ -146,7 +147,7 @@ begin
   desc 'Migrate CocoaPods db into local'
   task :migrate_from_heroku do
     database_url = ""
-    Bundler.with_clean_env do 
+    Bundler.with_clean_env do
       database_url = `heroku config:get DATABASE_URL --app cocoapods-org`.strip
     end
 
