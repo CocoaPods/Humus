@@ -23,6 +23,7 @@ cocoadocs_pod_metrics
 | is_vendored_framework   | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
 | rendered_changelog_url  | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
 | rendered_summary        | 25   | "text"                        | nil                                                 | true       | false       | :string   | nil          |
+| spm_support             | 16   | "boolean"                     | "false"                                             | true       | false       | :boolean  | false        |
 +-------------------------+------+-------------------------------+-----------------------------------------------------+------------+-------------+-----------+--------------+
 
 commits
