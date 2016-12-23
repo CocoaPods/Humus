@@ -14,6 +14,29 @@ This project:
 * helps setup a local CocoaPods development/test DB.
 * can pull snapshots from the production DB for testing purposes.
 
+Getting a copy of the Test Database set up for using with CocoaPods web projects
+--------------------------------------------------------------------------------
+
+Set up the repo: 
+
+```sh
+git clone https://github.com/CocoaPods/Humus.git
+cd Humus
+bundle install
+```
+
+Create the DB for the development environment:
+
+```sh
+RACK_ENV=development bundle exec rake db:create
+```
+
+Update it to latest:
+
+```sh
+RACK_ENV=development bundle exec rake db:migrate
+```
+
 Run Migrations in Production
 ----------------------------
 
