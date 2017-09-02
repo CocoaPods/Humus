@@ -37,6 +37,17 @@ Update it to latest:
 RACK_ENV=development bundle exec rake db:migrate
 ```
 
+Dependencies
+------------
+
+Ubuntu:
+
+If `bundle install` fails, then you probably need to install the following:
+
+```sh
+sudo apt-get install postgresql libpqdev postgresql-server-dev-9.6 
+```
+
 Run Migrations in Production
 ----------------------------
 
