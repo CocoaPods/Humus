@@ -103,6 +103,7 @@ begin
         snaps.seed_from_dump(args.id)
       end
 
+      # The dump ID comes from: https://data.heroku.com/datastores/a22141e3-f63e-4ccc-be03-7e09a742f687#durability
       desc "Get prod dump."
       task :prod_dump, :id do |_, args|
         require File.expand_path '../lib/snapshots', __FILE__
