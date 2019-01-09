@@ -30,7 +30,7 @@ GEM
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
-    eventmachine (1.0.3)
+    eventmachine (1.2.5)
     ffi (1.9.6)
     flounder (0.17.0)
       aggregate (~> 0.2, >= 0.2.2)
@@ -99,4 +99,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   1.10.5
+   1.15.4
