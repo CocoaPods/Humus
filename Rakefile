@@ -154,9 +154,9 @@ begin
 
     tmp_file = "/tmp/cocoapods_trunk.sql"
     puts "Downloading from the server, this will take a while"
-    puts "pg_dump #{database_url} -f #{tmp_file}"
+    puts "pg_dump #{database_url} -f #{tmp_file} --exclude-table sessions"
 
-    `pg_dump #{database_url} -f #{tmp_file}`
+    `pg_dump #{database_url} -f #{tmp_file} --exclude-table sessions`
 
     puts "Downloaded, dropping old trunk_cocoapods_org_development db"
     `echo "DROP DATABASE trunk_cocoapods_org_development" | psql postgres://localhost`
