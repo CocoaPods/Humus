@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.1' if ENV['RACK_ENV'] == 'production' || ENV['CI'] == 'true'
+ruby '2.6.3' if ENV['RACK_ENV'] == 'production' || ENV['CI'] == 'true'
 
 gem 'pg'
 
