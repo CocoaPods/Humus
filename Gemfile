@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.6.3' if ENV['RACK_ENV'] == 'production' || ENV['CI'] == 'true'
+ruby '3.1.1' if ENV['RACK_ENV'] == 'production' || ENV['CI'] == 'true'
 
 gem 'pg'
 
@@ -10,7 +10,7 @@ end
 
 group :web do
   gem 'sinatra'
-  gem 'thin'
+  gem 'thin', '~> 1.8'
 end
 
 group :database do
@@ -38,7 +38,7 @@ end
 #
 group :test do
   # gem 'rack-test'
-  gem 'kicker'
+  # gem 'kicker'
   # gem 'mocha', '~> 0.11.4'
   gem 'bacon'
   # gem 'mocha-on-bacon'
