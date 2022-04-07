@@ -7,16 +7,16 @@
 #
 def foreign_key_delete_cascade source_table, target_table, foreign_key
   <<-SQL
-    ALTER TABLE #{source_table} DROP CONSTRAINT #{source_table}_#{foreign_key}_fkey; 
-    ALTER TABLE #{source_table} ADD FOREIGN KEY (#{foreign_key}) 
-      REFERENCES #{target_table} (id)  
+    ALTER TABLE #{source_table} DROP CONSTRAINT #{source_table}_#{foreign_key}_fkey;
+    ALTER TABLE #{source_table} ADD FOREIGN KEY (#{foreign_key})
+      REFERENCES #{target_table} (id)
       ON DELETE CASCADE;
   SQL
 end
 
 # Helper method for migrations.
 #
-def migrate_to project, version: version
+def migrate_to(project, version:)
   schema_info_table_name = if project.to_s == 'trunk'
     "schema_info"
   else
