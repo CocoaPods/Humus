@@ -14,9 +14,6 @@ group :web do
 end
 
 group :database do
-  gem 'dm-core', require: true
-  gem 'dm-do-adapter', require: true
-  gem 'dm-postgres-adapter', require: true
   gem 'flounder'
 end
 
