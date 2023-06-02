@@ -37,6 +37,17 @@ module Humus
       
       puts "Prepared DB test snapshot #{id} downloaded to #{target_path}"
     end
+
+    # List all available DB dumps on the S3 bucket
+    #
+    def list_prepared_dumps
+      require 's3'
+      service = S3::Service.new(:access_key_id => access_key_id, :secret_access_key => secret_access_key)
+      bucket = service.buckets.find("cocoapods-org-testing-dumps")
+      bucket.objects.each do |obj|
+        puts obj.key
+      end
+    end
     
     # Seed the database from a downloaded dump.
     #

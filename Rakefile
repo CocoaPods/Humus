@@ -93,7 +93,12 @@ begin
 
         require File.expand_path '../lib/snapshots', __FILE__
         snaps = Humus::Snapshots.new(access_key_id, secret_access_key)
-        snaps.download_prepared_dump(args.id)
+
+        if (id = args.id) && !args.empty?
+          snaps.download_prepared_dump(args.id)
+        else
+          snaps.list_prepared_dumps
+        end
       end
 
       desc 'Seed test DB from a named production dump'

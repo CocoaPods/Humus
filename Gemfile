@@ -29,6 +29,8 @@ end
 
 group :dumping do
   gem 's3'
+  # The S3 gem will fail to download DB dumps at runtime without this
+  gem 'rexml'
 end
 
 # Pure test gems.

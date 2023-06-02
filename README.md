@@ -83,8 +83,19 @@ Running tests
 
 You need to have access (be on the core team).
 
-1. `bundle exec rake db:test:dump`
-2. `bundle exec rake`
+1. List the available snapshots
+```
+bundle exec rake db:test:dump
+trunk-201510021730-b154.dump
+trunk-201709-11349-a857.dump
+```
+
+2. Provide the selected ID (omitting the `trunk-` prefix) to the same command
+```
+bundle exec rake db:test:dump[201510021730-b154]
+```
+
+3. `bundle exec rake`
 
 Using Humus Snapshots for Integration Tests
 -------------------------------------------
@@ -133,8 +144,14 @@ Generating a sanitized Trunk DB Heroku snapshot
 So you've added a new table to the DB and you'd like it included in the dump.
 That is, the old dump is not good enough anymore.
 
-1. Create a new Heroku snapshot (https://postgres.heroku.com/databases/cocoapods-trunk-service-heroku-postgresql-blue#snapshots).
+1. Create a new Heroku snapshot
+    ```
+    heroku pg:backups:capture --app cocoapods-trunk-service
+    ```
 2. Download that dump.
+    ```
+    heroku pg:backups:download --app cocoapods-trunk-service
+    ```
 3. Load it into a DB.
 4. Run this SQL on that DB to sanitize the Trunk data:
 
