@@ -9,6 +9,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.8.4)
+      public_suffix (>= 2.0.2, < 6.0)
     aggregate (0.2.2)
     arel (5.0.1.20140414130214)
     bacon (1.2.0)
@@ -40,7 +42,8 @@ GEM
     notify (0.5.2)
     pg (0.21.0)
     pg-hstore (1.2.0)
-    proxies (0.2.1)
+    proxies (0.2.3)
+    public_suffix (5.0.1)
     rack (1.6.13)
     rack-protection (1.5.3)
       rack
@@ -50,8 +53,10 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.3)
       ffi (>= 0.5.0)
-    s3 (0.3.23)
-      proxies (~> 0.2.0)
+    rexml (3.2.5)
+    s3 (0.3.29)
+      addressable
+      proxies
     sequel (5.69.0)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -76,6 +81,7 @@ DEPENDENCIES
   pg
   prettybacon!
   rake
+  rexml
   s3
   sequel
   sinatra
